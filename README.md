@@ -5,3 +5,5 @@
 Plugin created by MrIvanPlays
 
 Supports 1.8.x - 1.14.x
+
+Resource page on spigot: https://www.spigotmc.org/resources/connectionfilter.71499/
