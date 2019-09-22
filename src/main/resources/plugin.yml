@@ -1,0 +1,8 @@
+name: ${project.name}
+version: ${project.version}
+main: ${plugin.mainClass}
+description: ${project.description}
+
+commands:
+  connectionfilter:
+    description: Reloads the plugin configuration

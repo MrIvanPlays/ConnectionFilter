@@ -1,0 +1,32 @@
+#####################
+# ConnectionLimiter #
+#  by: MrIvanPlays  #
+#####################
+
+# Maximum connections allowed per minute. If the specified
+# number is reached the protection gets triggered for the
+# time specified bellow
+connections-to-toggle: 20
+
+# The time for which the connections should be disallowed
+# when the protection was triggered.
+# Should be specified in seconds.
+time-for-to-disallow: 180
+
+# The already connected players in the minute when the
+# protection is toggled get kicked. This is the message
+# which will welcome these players when they get kicked!
+# Color codes and line breaks are supported.
+kick-message: "Too many connections were received the minute you connected \n Please try again after 3 minutes."
+
+# The connection which triggered the protection gets
+# disconnected with the following message.
+# Color codes and line breaks are supported
+current-connection-disallow-message: "Too many connections this minute. Please wait some time"
+
+# The rest of the connection requests in the specified time
+# when the protection is on get disconnected with the following
+# message. Color codes and line breaks are supported
+further-connections-disallow-message: "Too many connection requests were made in the past few minutes. \n Please try again after some time"
+
+# End of config - nothing to see here.
