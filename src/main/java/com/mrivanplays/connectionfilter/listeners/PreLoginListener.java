@@ -45,7 +45,7 @@ public class PreLoginListener implements Listener {
     plugin
         .getServer()
         .getScheduler()
-        .runTaskTimerAsynchronously(
+        .runTaskTimerAsynchronously( // async to prevent lags
             plugin,
             () -> {
               if (!connectedThisMinute.isEmpty()) {
@@ -63,6 +63,10 @@ public class PreLoginListener implements Listener {
       for (UUID connected : connectedThisMinute) {
         Player player = plugin.getServer().getPlayer(connected);
         if (player != null) {
+          // and now some stupidity of md_5
+          // from 1.14 the threads are strict main and async and due to this event called
+          // asynchronously and 1.14 not allowing player kicks to be made async we're
+          // stick using bukkit scheduler to run something on the main thread.
           plugin
               .getServer()
               .getScheduler()
@@ -87,6 +91,8 @@ public class PreLoginListener implements Listener {
                 .runTaskLater(
                     plugin,
                     () -> {
+                      // these changes should be made on the thread the event's being called
+                      // however that's not possible because...... java.....
                       limited = false;
                       task = null;
                     },
