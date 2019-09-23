@@ -35,7 +35,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class PreLoginListener implements Listener {
 
-  private int connectionsThisMinute = 0;
   private final List<UUID> connectedThisMinute = new ArrayList<>();
   private boolean limited = false;
   private BukkitTask task;
@@ -49,9 +48,6 @@ public class PreLoginListener implements Listener {
         .runTaskTimerAsynchronously(
             plugin,
             () -> {
-              if (connectionsThisMinute != 0) {
-                connectionsThisMinute = 0;
-              }
               if (!connectedThisMinute.isEmpty()) {
                 connectedThisMinute.clear();
               }
@@ -62,9 +58,8 @@ public class PreLoginListener implements Listener {
 
   @EventHandler
   public void on(AsyncPlayerPreLoginEvent event) {
-    connectionsThisMinute++;
     connectedThisMinute.add(event.getUniqueId());
-    if (connectionsThisMinute == plugin.getConfig().getInt("connections-to-toggle")) {
+    if (connectedThisMinute.size() == plugin.getConfig().getInt("connections-to-toggle")) {
       for (UUID connected : connectedThisMinute) {
         Player player = plugin.getServer().getPlayer(connected);
         if (player != null) {
