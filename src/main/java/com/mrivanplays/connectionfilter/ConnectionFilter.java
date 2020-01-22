@@ -30,9 +30,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ConnectionFilter extends JavaPlugin {
 
+  private Whitelist whitelist;
+
   @Override
   public void onEnable() {
     saveDefaultConfig();
+    whitelist = new Whitelist(getDataFolder());
     new MetricsLite(this);
     getServer().getPluginManager().registerEvents(new PreLoginListener(this), this);
     CommandPluginReload command = new CommandPluginReload(this);
@@ -48,5 +51,9 @@ public final class ConnectionFilter extends JavaPlugin {
 
   public String color(String text) {
     return ChatColor.translateAlternateColorCodes('&', text);
+  }
+
+  public Whitelist getWhitelist() {
+    return whitelist;
   }
 }

@@ -42,12 +42,12 @@ public class CommandPluginReload implements TabExecutor {
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (sender.hasPermission("connectionfilter.reload")) {
       plugin.reloadConfig();
-      sender.sendMessage(ChatColor.GREEN + "Configuration reloaded.");
-      return true;
+      plugin.getWhitelist().reload();
+      sender.sendMessage(ChatColor.GREEN + "Configuration and whitelist reloaded.");
     } else {
       sender.sendMessage(ChatColor.RED + "Insufficient permissions!");
-      return true;
     }
+    return true;
   }
 
   @Override

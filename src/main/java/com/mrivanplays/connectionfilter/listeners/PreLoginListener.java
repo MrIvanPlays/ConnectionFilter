@@ -63,6 +63,9 @@ public class PreLoginListener implements Listener {
       for (UUID connected : connectedThisMinute) {
         Player player = plugin.getServer().getPlayer(connected);
         if (player != null) {
+          if (plugin.getWhitelist().getWhitelist().contains(player.getName())) {
+            continue;
+          }
           // and now some stupidity of md_5
           // from 1.14 the threads are strict main and async and due to this event called
           // asynchronously and 1.14 not allowing player kicks to be made async we're
@@ -97,6 +100,9 @@ public class PreLoginListener implements Listener {
                       task = null;
                     },
                     20 * plugin.getConfig().getInt("time-for-to-disallow"));
+      }
+      if (plugin.getWhitelist().getWhitelist().contains(event.getName())) {
+        return;
       }
       event.disallow(
           Result.KICK_OTHER,
